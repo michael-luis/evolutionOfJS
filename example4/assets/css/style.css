@@ -1,0 +1,25 @@
+.thumbnail {
+    width: 125px;
+    height: 125px;
+    float: left;
+    margin: 10px 10px 10px 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.thumbnail:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.thumbnail img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    height: auto;
+}

@@ -1,0 +1,1 @@
+{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "album.images" }, { "v" : 1, "key" : { "album_id" : 1 }, "name" : "album_id_1", "ns" : "album.images" } ] }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Upload Image</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+<h2>Upload Image</h2>
+<form id="uploadForm" method="post">
+    <p>Image: <input type="file" name="image-file" id="image-file" /></p>
+    <p>Name: <input type="text" name="name" id="name" /></p>
+    <p>Email: <input type="text" name="email" id="email" /></p>
+    <p><input type="submit" value="Upload" /></p>
+</form>
+<hr />
+<h2>Uploaded Images</h2>
+<div id="image_container"></div>
+
+<!-- JavaScript tags -->
+<script src="assets/js/uploader.js"></script>
+<script>
+    var form = document.getElementById("uploadForm");
+    //Module pattern calling an immediately invoked function expression
+    ImageUploader(form, {
+                             file: 'image-file', // name of file field
+                             name: 'name', // image name field
+                             email: 'email', // email field
+                             handler: 'handler.php', // server side handler,
+                             container: 'image_container' // images container
+                         }
+                 )
+</script>
+
+</body>
+</html>

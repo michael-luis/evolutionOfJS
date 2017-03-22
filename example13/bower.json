@@ -1,0 +1,18 @@
+{
+  "name": "album-mean",
+  "version": "1.0.0",
+  "description": "MEAN Album Example",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.3",
+    "angular-resource": "~1.4.3",
+    "bootstrap": "~3.3.5"
+  }
+}

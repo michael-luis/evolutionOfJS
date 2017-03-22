@@ -1,0 +1,38 @@
+body > .container {
+    padding: 60px 15px 0px;
+}
+
+#album_list {
+    min-width: 150px;
+}
+
+#image_container {
+    padding-top: 15px;
+    float: left;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+}
+
+#message {
+    position: absolute;
+    top: 0;
+    z-index: 2000;
+    width: 100%;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+input.ng-invalid {
+    border: 1px solid red;
+}
+
+input.ng-valid {
+    border: 1px solid green;
+}
+
+.form-group .alert {
+    padding: 10px;
+    margin-top: 10px;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- using jquery library -->
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- importing our app.js file where we will use jquery -->
+    <script src="assets/js/app.js"></script>
+</head>
+<body>
+<h2>Create Album</h2>
+<p>Album Name: <input type="text" name="album_name" id="album_name" /></p>
+<p><input type="button" name="albumBtn" id="albumBtn" value="Create Album" /></p>
+<hr />
+<h2>Upload Image</h2>
+<form id="uploadForm" method="post">
+    <p>Select an Album: <select id="album" name="album"></select></p>
+    <p>Image: <input type="file" name="image-file" id="image-file" /></p>
+    <p>Name: <input type="text" name="name" id="name" /></p>
+    <p>Email: <input type="text" name="email" id="email" /></p>
+    <p><input type="submit" value="Upload" /></p>
+    <input type="hidden" name="action" value="upload_image" />
+</form>
+<hr />
+<h2>Uploaded Images</h2>
+<p>Album: <select id="album_list"></select></p>
+<div id="image_container"></div>
+</body>
+</html>

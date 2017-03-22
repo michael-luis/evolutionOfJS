@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="albumApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Album</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#" data-toggle="modal" data-target="#albumModal">Create Album</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#uploadModal">Upload Image</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div id="album_wrapper" class="container" ng-controller="imageListController" ng-cloak>
+    <h2 id="filter" class="form-inline">Select an Album <select ng-model="album_list.album" class="form-control">
+        <option value="">All</option>
+        <option ng-repeat="album in albums" value="{{album.name}}">{{album.name}}</option>
+    </select></h2>
+    <div id="image_container">
+        <div class="col-xs-6 col-md-3" ng-repeat="image in images | filter: album_list">
+            <a ng-href="uploads/{{image.image}}" class="thumbnail" target="_blank"><img ng-src="uploads/{{image.image}}" alt="{{image.name}}"></a>
+        </div>
+    </div>
+</div>
+
+<!-- Create album modal -->
+<div id="albumModal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form name="albumForm" ng-submit="createAlbum()"  ng-controller="albumController" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="reset()"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Create Album</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="album_name">Album Name</label>
+                        <input type="text" class="form-control" id="album_name" name="name" ng-model="album.name" placeholder="Album Name" required>
+                        <div class="alert alert-warning" ng-show="albumForm.$submitted && albumForm.name.$error.required">
+                            <span>Please enter album name!</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()">Close</button>
+                    <button type="submit" class="btn btn-primary" id="albumBtn">Save</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Upload Image Modal -->
+<div id="uploadModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="uploadForm" ng-submit="uploadImage(image)" ng-controller="uploadController" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="reset()"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Upload Image</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="album">Album</label>
+                        <select class="form-control" id="album" name="album" ng-model="image.album" ng-options="album.name as album.name for album in albums" required></select>
+                        <div class="alert alert-warning" ng-show="uploadForm.$submitted && uploadForm.album.$error.required">
+                            <span>Please select an album, if no album, create one first!</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" ng-model="image.name" placeholder="Image Name" required>
+                        <div class="alert alert-warning" ng-show="uploadForm.$submitted && uploadForm.name.$error.required">
+                            <span>Please enter name of the image!</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" ng-model="image.email" placeholder="Email" required>
+                        <div class="alert alert-warning" ng-show="uploadForm.$submitted && uploadForm.email.$invalid">
+                            <span ng-show="uploadForm.email.$error.required">Please enter email.</span>
+                            <span ng-show="uploadForm.email.$error.email">This is not a valid email.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" ng-model="image.image" file-model="image.image" required>
+                        <div class="alert alert-warning" ng-show="uploadForm.$submitted && uploadForm.image.$invalid">
+                            <span ng-show="uploadForm.image.$error.required">Please select an image to upload!</span>
+                            <span ng-show="uploadForm.image.$error.size">Image is too large, please upload an image less than 200KB.</span>
+                            <span ng-show="uploadForm.image.$error.format">The selected file is not a valid image format.</span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="action" value="upload_image">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()">Close</button>
+                    <button type="submit" class="btn btn-primary" id="uploadBtn">Upload</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script src="assets/js/app.js"></script>
+<script src="assets/js/services/service.js"></script>
+<script src="assets/js/directives/directive.js"></script>
+<script src="assets/js/controllers/controller.js"></script>
+</body>
+</html>

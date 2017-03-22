@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="author" content="Mike Neder"/>
+    <title>Upload Image</title>
+    <script>
+        //a simple function
+        function validate() {
+
+            var imageFile = document.getElementById("image_file"),
+                emailAddress = document.getElementById("email");// creates Element object
+
+            var image = new String(imageFile.value),
+                    email = new String(emailAddress.value);//gets form input values
+
+            // The above few lines can typically be written like this
+            // var image = document.getElementById("image_file").value;
+            // var email = document.getElementById("email").value;
+
+            if (image === "") {  // if element value is empty,
+                alert("Please select an image to upload!"); // alert the user to upload an image
+                return false;  // then break out of this function
+            }
+
+            var regexp = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/); //Regular Expression constructor, typically not used until after es3
+            if (regexp.test(email)) {  //a standard check for a valid email address, using RegExp.prototype.test()
+                return true
+            } else { // if the inputed email is not valid, alert the user
+                alert("Invalid E-mail Address! Please re-enter.");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>My Cool Album</h1>
+    <form action="result.html" method="post" onsubmit="return validate()">
+        <p>
+            <label>Image:</label>
+            <input type="file" name="image_file" id="image_file" /></p>
+        <p>
+            <label>Email:</label>
+            <input type="text" name="email" id="email" /></p>
+        <p><input type="submit" value="Upload"/></p>
+    </form>
+</body>
+</html>
